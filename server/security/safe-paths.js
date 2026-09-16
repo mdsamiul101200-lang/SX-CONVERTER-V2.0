@@ -1,0 +1,1 @@
+import path from "node:path";export function safeJoin(base,rel){const t=path.resolve(base,rel),b=path.resolve(base)+path.sep;if(t!==path.resolve(base)&&!t.startsWith(b))throw Error("INVALID_FILE");return t}export function safeName(n){return path.basename(String(n||"file")).replace(/[^a-zA-Z0-9._-]/g,"_").slice(0,160)||"file"}

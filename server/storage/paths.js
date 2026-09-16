@@ -1,0 +1,1 @@
+import path from "node:path";import fs from "node:fs/promises";export const UPLOADS=path.join(process.cwd(),"data/uploads"),WORK=path.join(process.cwd(),"data/work"),OUTPUTS=path.join(process.cwd(),"data/outputs");export async function ensureStorage(){for(const p of [UPLOADS,WORK,OUTPUTS])await fs.mkdir(p,{recursive:true})}

@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: sx-converter
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /api/health
+    envVars:
+      - key: PORT
+        value: "10000"
+      - key: MAX_FILE_SIZE_MB
+        value: "100"
+      - key: CORS_ORIGIN
+        value: "*"

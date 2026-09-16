@@ -1,0 +1,12 @@
+node_modules
+npm-debug.log
+.git
+.gitignore
+README.md
+smoke-test.mjs
+data/uploads/*
+data/work/*
+data/outputs/*
+!data/uploads/.gitkeep
+!data/work/.gitkeep
+!data/outputs/.gitkeep

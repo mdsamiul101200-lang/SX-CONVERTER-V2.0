@@ -1,0 +1,23 @@
+import "dotenv/config";
+import express from "express";
+import cors from "cors";
+import helmet from "helmet";
+import path from "node:path";
+import {fileURLToPath} from "node:url";
+import {ensureStorage} from "./storage/paths.js";
+import api from "./routes/api.js";
+
+const __dirname=path.dirname(fileURLToPath(import.meta.url));
+const root=path.resolve(__dirname,"..");
+const app=express();
+await ensureStorage();
+app.disable("x-powered-by");
+app.use(helmet({crossOriginResourcePolicy:{policy:"cross-origin"}}));
+app.use(cors({origin:process.env.CORS_ORIGIN||true}));
+app.use(express.json({limit:"1mb"}));
+app.use("/public",express.static(path.join(root,"public"),{index:false}));
+app.get("/",(_q,s)=>s.sendFile(path.join(root,"index.html")));
+app.use("/api",api);
+app.use((_q,s)=>s.status(404).json({error:"SERVER ERROR"}));
+const port=Number(process.env.PORT||10000);
+app.listen(port,"0.0.0.0",()=>console.log(`SX CONVERTER listening on ${port}`));

@@ -1,0 +1,3 @@
+import express from "express";import multer from "multer";import crypto from "node:crypto";import {UPLOADS} from "../storage/paths.js";import {formats,createConversion,status,download,remove} from "../controllers/api.js";
+const r=express.Router();const upload=multer({dest:UPLOADS,limits:{fileSize:Number(process.env.MAX_FILE_SIZE_MB||100)*1024*1024},filename:(_a,_b,c)=>c(null,crypto.randomUUID())});
+r.get("/formats",(_q,s)=>s.json({formats}));r.post("/convert",upload.single("file"),createConversion);r.get("/conversion/:id",status);r.get("/download/:id",download);r.delete("/conversion/:id",remove);r.get("/health",(_q,s)=>s.json({ok:true,name:"SX CONVERTER"}));export default r;

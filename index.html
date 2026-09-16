@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#03060d"><title>SX CONVERTER</title>
+<link rel="stylesheet" href="./public/css/style.css"></head>
+<body><main class="app-shell"><section class="converter-panel">
+<header class="brand"><span class="brand-mark">SX</span><span>SX CONVERTER</span></header>
+<div class="upload-panel" id="dropZone"><div class="upload-icon">＋</div><button class="ghost-btn" id="chooseBtn">CHOOSE FILE</button><button class="text-btn" id="pasteBtn">PASTE</button><input id="fileInput" type="file" hidden><textarea id="pasteInput" class="paste-area" placeholder="Paste text or HTML" hidden></textarea></div>
+<div class="file-card" id="fileCard" hidden><div class="file-meta"><strong id="fileName"></strong><span id="fileInfo"></span></div><button class="remove-btn" id="removeBtn">REMOVE</button></div>
+<div class="format-row"><div class="format-group"><label>INPUT FORMAT</label><select id="inputFormat"></select></div><div class="route-arrow">→</div><div class="format-group"><label>OUTPUT FORMAT</label><select id="outputFormat"></select></div></div>
+<button class="convert-btn" id="convertBtn">CONVERT</button>
+<div class="status-panel" id="statusPanel" hidden><div class="spinner" id="spinner"></div><div class="status-text" id="statusText">READY</div>
+<div class="result" id="result" hidden><div class="result-title">CONVERSION COMPLETE</div><div class="result-file" id="resultFile"></div><button class="download-btn" id="downloadBtn">DOWNLOAD</button><button class="again-btn" id="againBtn">CONVERT AGAIN</button></div></div>
+</section></main><script src="./public/js/app.js"></script></body></html>

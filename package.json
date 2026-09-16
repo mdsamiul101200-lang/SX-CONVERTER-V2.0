@@ -1,0 +1,26 @@
+{
+  "name": "sx-converter",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server/server.js",
+    "dev": "node --watch server/server.js"
+  },
+  "dependencies": {
+    "archiver": "^7.0.1",
+    "cors": "^2.8.5",
+    "docx": "^9.5.1",
+    "express": "^5.1.0",
+    "file-type": "^20.5.0",
+    "helmet": "^8.1.0",
+    "jsdom": "^26.1.0",
+    "jszip": "^3.10.1",
+    "mammoth": "^1.9.1",
+    "mime-types": "^3.0.1",
+    "multer": "^2.0.2",
+    "pdf-lib": "^1.17.1",
+    "playwright": "^1.55.0",
+    "dotenv": "^17.2.2"
+  }
+}
