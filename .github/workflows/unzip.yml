@@ -1,0 +1,74 @@
+name: Unzip SX CONVERTER Project
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  unzip-project:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Find uploaded ZIP
+        id: find_zip
+        shell: bash
+        run: |
+          ZIP_FILE=$(find . -maxdepth 1 -type f -iname "*.zip" | head -n 1)
+
+          if [ -z "$ZIP_FILE" ]; then
+            echo "No ZIP file found in repository root."
+            exit 1
+          fi
+
+          echo "ZIP_FILE=$ZIP_FILE" >> "$GITHUB_OUTPUT"
+          echo "Found: $ZIP_FILE"
+
+      - name: Extract ZIP
+        shell: bash
+        run: |
+          ZIP_FILE="${{ steps.find_zip.outputs.ZIP_FILE }}"
+
+          mkdir -p extracted
+
+          unzip -o "$ZIP_FILE" -d extracted
+
+          echo "ZIP extracted successfully."
+
+      - name: Move project files to repository root
+        shell: bash
+        run: |
+          shopt -s dotglob
+
+          if [ -d "extracted/SX-CONVERTER-RENDER-REAL-FIXED" ]; then
+            cp -a extracted/SX-CONVERTER-RENDER-REAL-FIXED/. .
+          else
+            cp -a extracted/. .
+          fi
+
+          rm -rf extracted
+
+      - name: Remove ZIP files
+        shell: bash
+        run: |
+          find . -maxdepth 1 -type f -iname "*.zip" -delete
+
+      - name: Commit extracted project
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add -A
+
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+
+          git commit -m "Extract SX CONVERTER project"
+          git push
